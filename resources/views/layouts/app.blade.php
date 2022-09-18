@@ -96,7 +96,7 @@
                     </div>
 				</button>
 
-				<ul class="navbar-nav ml-auto ml-md-0 notification-area">
+				<!-- <ul class="navbar-nav ml-auto ml-md-0 notification-area">
 					<li class="nav-item dropdown animate-dropdown">
 						<i class="icofont-notification dropdown-toggle" data-toggle="dropdown">
 							@php $notificatioCount = Auth::user()->unreadNotifications->count(); @endphp
@@ -132,9 +132,9 @@
 							</div>
 						</div>
 					</li>
-				</ul>
+				</ul> -->
 
-				<ul class="navbar-nav ml-auto ml-md-0">
+				<!-- <ul class="navbar-nav ml-auto ml-md-0">
 					<li class="nav-item dropdown animate-dropdown">
 						<a class="nav-link dropdown-toggle" id="languageSelector" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="icofont-world"></i> {{ session('language') =='' ? get_option('language') : session('language') }}</a>
 						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="languageSelector">
@@ -143,7 +143,7 @@
 							@endforeach
 						</div>
 					</li>
-				</ul>
+				</ul> -->
 
 				<ul class="navbar-nav ml-auto ml-md-0">
 					<li class="nav-item dropdown animate-dropdown">
@@ -152,6 +152,7 @@
 							<a class="dropdown-item" href="{{ route('profile.index') }}"><i class="icofont-ui-user"></i> {{ _lang('Profile Overview') }}</a>
 							<a class="dropdown-item" href="{{ route('profile.edit') }}"><i class="icofont-ui-edit"></i> {{ _lang('Profile Settings') }}</a>
 							<a class="dropdown-item" href="{{ route('profile.change_password') }}"><i class="icofont-exchange"></i></i> {{ _lang('Change Password') }}</a>
+							<a class="dropdown-item" href="{{ route('profile.change_password') }}"><i class="icofont-notification"></i></i> {{ _lang('Notification') }} {!! xss_clean(request_count('fdr_requests',true)) !!}</a>
 							@if(auth()->user()->user_type == 'admin')
 							<a class="dropdown-item" href="{{ route('settings.update_settings') }}"><i class="icofont-ui-settings"></i> {{ _lang('System Settings') }}</a>
 							@endif
