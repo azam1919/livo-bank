@@ -165,15 +165,27 @@
 			</div>
         </nav>
 		<!--End Header Nav-->
-
-		@if(Auth::user()->user_type == 'customer')
-		<div class="alert alert-warning alert-dismissible fade show" role="alert">
-			<strong>Holy guacamole!</strong> Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime, et! Assumenda dolorum nemo quisquam, voluptatum nostrum, qui perspiciatis quae aperiam a eum, beatae voluptatibus animi excepturi libero cumque dicta molestiae reiciendis pariatur enim quia in architecto sapiente esse? Cum, amet ea magni hic iusto perspiciatis deserunt voluptatum unde. Harum voluptatem inventore tenetur at provident perspiciatis velit..
-			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-				<span aria-hidden="true">&times;</span>
-			</button>
-		</div>
+		<!-- latest News start -->
+		@if(!empty($newses))
+			@if(Auth::user()->user_type == 'customer')
+				@foreach ($newses as $news)
+					<!-- <div class="alert alert-warning alert-dismissible fade show" role="alert">
+						<strong>Holy guacamole!</strong> Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime, et! Assumenda dolorum nemo quisquam, voluptatum nostrum, qui perspiciatis quae aperiam a eum, beatae voluptatibus animi excepturi libero cumque dicta molestiae reiciendis pariatur enim quia in architecto sapiente esse? Cum, amet ea magni hic iusto perspiciatis deserunt voluptatum unde. Harum voluptatem inventore tenetur at provident perspiciatis velit..
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div> -->
+					<div class="alert alert-warning alert-dismissible fade show" role="alert">
+						<strong>{{ $news['news_translations']->title }}</strong>
+						{{ $news['news_translations']->short_description }}
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+				@endforeach
+			@endif
 		@endif
+		<!-- latest News End -->
 		<div id="layoutSidenav" class="container-fluid d-flex align-items-stretch">
 			<div id="layoutSidenav_nav">
 				<span class="close-mobile-nav"><i class="icofont-close-line-squared-alt"></i></span>

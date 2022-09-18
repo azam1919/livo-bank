@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\FixedDeposit;
 use App\Models\Loan;
+use App\Models\News;
 use App\Models\PaymentRequest;
 use App\Models\SupportTicket;
 use App\Models\Transaction;
 use App\Models\User;
-use DB;
-
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\View;
 class DashboardController extends Controller {
 
     /**
@@ -19,6 +20,14 @@ class DashboardController extends Controller {
      */
     public function __construct() {
         date_default_timezone_set(get_option('timezone', 'Asia/Dhaka'));
+        $this->news_broadcast();
+    }
+    public function news_broadcast()
+    {
+        $newses = News::with('news_translations')->where('status', 1)->get();
+        // dd($newses['news_translations']);
+        // dd($newses->toArray());
+        View::share(['newses' => $newses]);
     }
 
     /**
