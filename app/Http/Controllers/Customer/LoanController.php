@@ -23,7 +23,6 @@ class LoanController extends Controller
     public function __construct()
     {
         date_default_timezone_set(get_option('timezone', 'Asia/Dhaka'));
-        app(DashboardController::class)->news_broadcast();
     }
 
     /**
