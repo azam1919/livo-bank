@@ -3,21 +3,25 @@
 namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\DashboardController;
 use App\Models\SupportMessage;
 use App\Models\SupportTicket;
 use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class SupportTicketController extends Controller {
+class SupportTicketController extends Controller
+{
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct() {
+    public function __construct()
+    {
         date_default_timezone_set(get_option('timezone', 'Asia/Dhaka'));
+        app(DashboardController::class)->news_broadcast();
     }
 
     /**
@@ -25,7 +29,8 @@ class SupportTicketController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function my_tickets(Request $request) {
+    public function my_tickets(Request $request)
+    {
         if ($request->status == 'active') {
             $status = 1;
             $title  = _lang('Active Tickets');
@@ -52,7 +57,8 @@ class SupportTicketController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function create_ticket(Request $request) {
+    public function create_ticket(Request $request)
+    {
         if ($request->isMethod('get')) {
             $alert_col = 'col-lg-8 offset-lg-2';
             return view('backend.customer_portal.support_ticket.create', compact('alert_col'));
@@ -100,7 +106,6 @@ class SupportTicketController extends Controller {
             DB::commit();
 
             return redirect()->route('tickets.my_tickets', ['status' => 'pending'])->with('success', _lang('New ticket created successfully'));
-
         }
     }
 
@@ -110,7 +115,8 @@ class SupportTicketController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function reply(Request $request, $id) {
+    public function reply(Request $request, $id)
+    {
         $validator = Validator::make($request->all(), [
             'message'    => 'required',
             'attachment' => 'nullable|mimes:jpeg,jpg,png,doc,pdf,docx,zip',
@@ -145,7 +151,8 @@ class SupportTicketController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, $id) {
+    public function show(Request $request, $id)
+    {
         $supportticket = SupportTicket::where('id', $id)->where('user_id', auth()->id())->first();
         return view('backend.customer_portal.support_ticket.view', compact('supportticket', 'id'));
     }
@@ -156,7 +163,8 @@ class SupportTicketController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function mark_as_closed($id) {
+    public function mark_as_closed($id)
+    {
         $supportticket                 = SupportTicket::where('id', $id)->where('user_id', auth()->id())->where('status', 1)->first();
         $supportticket->status         = 2;
         $supportticket->closed_user_id = auth()->id();
@@ -164,5 +172,4 @@ class SupportTicketController extends Controller {
 
         return redirect()->route('tickets.my_tickets', ['status' => 'closed'])->with('success', _lang('Ticket Closed'));
     }
-
 }

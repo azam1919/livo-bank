@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\DashboardController;
 use App\Models\FDRPlan;
 use App\Models\FixedDeposit;
 use App\Models\Transaction;
@@ -10,15 +11,18 @@ use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class FixedDepositController extends Controller {
+class FixedDepositController extends Controller
+{
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct() {
+    public function __construct()
+    {
         date_default_timezone_set(get_option('timezone', 'Asia/Dhaka'));
+        app(DashboardController::class)->news_broadcast();
     }
 
     /**
@@ -26,7 +30,8 @@ class FixedDepositController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function index() {
+    public function index()
+    {
         $fixedDeposits = FixedDeposit::select('fdrs.*')
             ->with('plan')
             ->with('currency')
@@ -41,7 +46,8 @@ class FixedDepositController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function apply(Request $request) {
+    public function apply(Request $request)
+    {
         if ($request->isMethod('get')) {
             $alert_col = 'col-lg-8 offset-lg-2';
             return view('backend.customer_portal.fixed_deposit.apply', compact('alert_col'));
@@ -113,8 +119,6 @@ class FixedDepositController extends Controller {
             DB::commit();
 
             return redirect()->route('fixed_deposits.history')->with('success', _lang('Your request has been submitted. You will be notified shortly after reviewing by authority.'));
-
         }
     }
-
 }

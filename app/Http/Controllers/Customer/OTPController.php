@@ -3,22 +3,27 @@
 namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\DashboardController;
 use App\Notifications\OTP;
 use App\Utilities\Overrider;
 use Illuminate\Http\Request;
 
-class OTPController extends Controller {
+class OTPController extends Controller
+{
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct() {
+    public function __construct()
+    {
         date_default_timezone_set(get_option('timezone', 'Asia/Dhaka'));
+        app(DashboardController::class)->news_broadcast();
     }
 
-    public function generateOtp(Request $request) {
+    public function generateOtp(Request $request)
+    {
         if (session('transaction_data') == null) {
             return back();
         }
@@ -26,11 +31,11 @@ class OTPController extends Controller {
         return view('backend.customer_portal.otp.show', compact('alert_col'));
     }
 
-    public function resendOtp(Request $request) {
+    public function resendOtp(Request $request)
+    {
         Overrider::load("Settings");
         auth()->user()->generateOTP();
         auth()->user()->notify(new OTP());
         return back();
     }
-
 }

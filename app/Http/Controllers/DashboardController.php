@@ -4,29 +4,41 @@ namespace App\Http\Controllers;
 
 use App\Models\FixedDeposit;
 use App\Models\Loan;
+use App\Models\News;
 use App\Models\PaymentRequest;
 use App\Models\SupportTicket;
 use App\Models\Transaction;
 use App\Models\User;
-use DB;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\View;
 
-class DashboardController extends Controller {
+class DashboardController extends Controller
+{
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct() {
+    public function __construct()
+    {
         date_default_timezone_set(get_option('timezone', 'Asia/Dhaka'));
+        $this->news_broadcast();
     }
-
+    public function news_broadcast()
+    {
+        $newses = News::with('news_translations')->where('status', 1)->get();
+        // dd($newses['news_translations']);
+        // dd($newses->toArray());
+        View::share(['newses' => $newses]);
+    }
     /**
      * Show the application dashboard.
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index() {
+    public function index()
+    {
         $user      = auth()->user();
         $user_type = $user->user_type;
         $data      = array();
@@ -53,63 +65,73 @@ class DashboardController extends Controller {
                 ->with('currency')
                 ->orderBy('created_at', 'desc')
                 ->get();
-
         }
 
         return view("backend.dashboard-$user_type", $data);
     }
 
-    public function active_users_widget() {
+    public function active_users_widget()
+    {
         // Use for Permission Only
         return redirect()->route('dashboard.index');
     }
 
-    public function pending_kyc_widget() {
+    public function pending_kyc_widget()
+    {
         // Use for Permission Only
         return redirect()->route('dashboard.index');
     }
 
-    public function pending_tickets_widget() {
+    public function pending_tickets_widget()
+    {
         // Use for Permission Only
         return redirect()->route('dashboard.index');
     }
 
-    public function deposit_requests_widget() {
+    public function deposit_requests_widget()
+    {
         // Use for Permission Only
         return redirect()->route('dashboard.index');
     }
 
-    public function withdraw_requests_widget() {
+    public function withdraw_requests_widget()
+    {
         // Use for Permission Only
         return redirect()->route('dashboard.index');
     }
 
-    public function loan_requests_widget() {
+    public function loan_requests_widget()
+    {
         // Use for Permission Only
         return redirect()->route('dashboard.index');
     }
 
-    public function fdr_requests_widget() {
+    public function fdr_requests_widget()
+    {
         // Use for Permission Only
         return redirect()->route('dashboard.index');
     }
 
-    public function wire_transfer_widget() {
+    public function wire_transfer_widget()
+    {
         // Use for Permission Only
         return redirect()->route('dashboard.index');
     }
 
-    public function total_deposit_widget() {
+    public function total_deposit_widget()
+    {
         // Use for Permission Only
         return redirect()->route('dashboard.index');
     }
 
-    public function total_withdraw_widget() {
+    public function total_withdraw_widget()
+    {
         // Use for Permission Only
         return redirect()->route('dashboard.index');
     }
 
-    public function recent_transaction_widget() {
+    public function recent_transaction_widget()
+    {
         // Use for Permission Only
         return redirect()->route('dashboard.index');
     }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\DashboardController;
 use App\Models\PaymentRequest;
 use App\Models\Transaction;
 use App\Models\User;
@@ -13,15 +14,18 @@ use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class PaymentRequestController extends Controller {
+class PaymentRequestController extends Controller
+{
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct() {
+    public function __construct()
+    {
         date_default_timezone_set(get_option('timezone', 'Asia/Dhaka'));
+        app(DashboardController::class)->news_broadcast();
     }
 
     /**
@@ -29,11 +33,13 @@ class PaymentRequestController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function index() {
+    public function index()
+    {
         return view('backend.customer_portal.payment_request.list');
     }
 
-    public function get_table_data() {
+    public function get_table_data()
+    {
 
         $paymentrequests = PaymentRequest::select('payment_requests.*')
             ->with(['currency', 'sender', 'receiver'])
@@ -51,10 +57,10 @@ class PaymentRequestController extends Controller {
             ->addColumn('action', function ($paymentrequest) {
                 if ($paymentrequest->status == 1 && $paymentrequest->sender_id == auth()->id()) {
                     return '<div class="text-center"><a href="' . route('payment_requests.show', $paymentrequest->id) . '" data-title="' . _lang('Payment Request Details') . '" class="btn btn-primary btn-sm ajax-modal">' . _lang('View') . '</a>&nbsp;'
-                    . '<a href="' . route('payment_requests.cancel', $paymentrequest->id) . '" class="btn btn-danger btn-sm btn-remove-2">' . _lang('Cancel') . '</a></div>';
+                        . '<a href="' . route('payment_requests.cancel', $paymentrequest->id) . '" class="btn btn-danger btn-sm btn-remove-2">' . _lang('Cancel') . '</a></div>';
                 } else if ($paymentrequest->status == 1 && $paymentrequest->receiver_id == auth()->id()) {
                     return '<div class="text-center"><a href="' . route('payment_requests.show', $paymentrequest->id) . '" data-title="' . _lang('Payment Request Details') . '" class="btn btn-primary btn-sm ajax-modal">' . _lang('View') . '</a>&nbsp;'
-                    . '<a href="' . route('payment_requests.pay_now', encrypt($paymentrequest->id)) . '" class="btn btn-success btn-sm">' . _lang('Pay Now') . '</a></div>';
+                        . '<a href="' . route('payment_requests.pay_now', encrypt($paymentrequest->id)) . '" class="btn btn-success btn-sm">' . _lang('Pay Now') . '</a></div>';
                 }
 
                 return '<div class="text-center"><a href="' . route('payment_requests.show', $paymentrequest->id) . '" data-title="' . _lang('Payment Request Details') . '" class="btn btn-primary btn-sm ajax-modal">' . _lang('View') . '</a></div>';
@@ -71,7 +77,8 @@ class PaymentRequestController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request) {
+    public function create(Request $request)
+    {
         $alert_col = 'col-lg-8 offset-lg-2';
         return view('backend.customer_portal.payment_request.create', compact('alert_col'));
     }
@@ -82,7 +89,8 @@ class PaymentRequestController extends Controller {
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         $validator = Validator::make($request->all(), [
             'receiver_account' => 'required',
             'currency_id'      => 'required',
@@ -127,10 +135,10 @@ class PaymentRequestController extends Controller {
 
         try {
             $paymentrequest->receiver->notify(new PaymentRequestNotification($paymentrequest));
-        } catch (\Exception $e) {}
+        } catch (\Exception $e) {
+        }
 
         return redirect()->route('payment_requests.create')->with('success', _lang('Payment Request Sent'));
-
     }
 
     /**
@@ -139,14 +147,14 @@ class PaymentRequestController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, $id) {
+    public function show(Request $request, $id)
+    {
         $paymentrequest = PaymentRequest::find($id);
         if (!$request->ajax()) {
             return view('backend.customer_portal.payment_request.view', compact('paymentrequest', 'id'));
         } else {
             return view('backend.customer_portal.payment_request.modal.view', compact('paymentrequest', 'id'));
         }
-
     }
 
     /**
@@ -155,7 +163,8 @@ class PaymentRequestController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function pay_now(Request $request, $id) {
+    public function pay_now(Request $request, $id)
+    {
         $id = decrypt($id);
 
         if ($request->isMethod('get')) {
@@ -238,10 +247,10 @@ class PaymentRequestController extends Controller {
 
             try {
                 $paymentrequest->sender->notify(new PaymentCompleted($paymentrequest));
-            } catch (\Exception $e) {}
+            } catch (\Exception $e) {
+            }
 
             return redirect()->route('payment_requests.index')->with('success', _lang('Payment Made Successfully'));
-
         }
     }
 
@@ -251,7 +260,8 @@ class PaymentRequestController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function cancel($id) {
+    public function cancel($id)
+    {
         $paymentrequest = PaymentRequest::where('id', $id)
             ->where('status', 1)
             ->where('sender_id', auth()->id())
