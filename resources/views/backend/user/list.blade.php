@@ -56,5 +56,5 @@
 
 
 @section('js-script')
-<script src="{{ asset('public/backend/assets/js/datatables/users.js?v=1.0') }}"></script>
+<script src="{{ asset('/backend/assets/js/datatables/users.js?v=1.0') }}"></script>
 @endsection

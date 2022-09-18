@@ -125,7 +125,7 @@
     </div>
 </div>
 
-<script src="{{ asset('public/backend/assets/js/jquery-3.6.0.min.js') }}"></script>
+<script src="{{ asset('/backend/assets/js/jquery-3.6.0.min.js') }}"></script>
 
 @if(get_option('enable_recaptcha', 0) == 1)
 <script src="https://www.google.com/recaptcha/api.js?render={{ get_option('recaptcha_site_key') }}"></script>

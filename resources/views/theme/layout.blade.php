@@ -14,15 +14,15 @@
     <!-- Favicon-->
     <link rel="icon" type="image/png" href="{{ get_favicon() }}" />
     <!-- bootstrap.min css -->
-    <link rel="stylesheet" href="{{ asset('public/theme/plugins/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/theme/plugins/bootstrap/css/bootstrap.min.css') }}">
     <!-- Icon Font Css -->
-    <link rel="stylesheet" href="{{ asset('public/theme/plugins/icofont/icofont.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/theme/plugins/icofont/icofont.min.css') }}">
     <!-- Slick Slider  CSS -->
-    <link rel="stylesheet" href="{{ asset('public/theme/plugins/slick-carousel/slick/slick.css') }}">
-    <link rel="stylesheet" href="{{ asset('public/theme/plugins/slick-carousel/slick/slick-theme.css') }}">
+    <link rel="stylesheet" href="{{ asset('/theme/plugins/slick-carousel/slick/slick.css') }}">
+    <link rel="stylesheet" href="{{ asset('/theme/plugins/slick-carousel/slick/slick-theme.css') }}">
 
     <!-- Main Stylesheet -->
-    <link rel="stylesheet" href="{{ asset('public/theme/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('/theme/css/style.css') }}">
 
     <!--- Custom CSS Code --->
     <style type="text/css">
@@ -150,17 +150,17 @@
 
 
     <!-- Main jQuery -->
-    <script src="{{ asset('public/theme/plugins/jquery/jquery-3.6.0.min.js') }}"></script>
+    <script src="{{ asset('/theme/plugins/jquery/jquery-3.6.0.min.js') }}"></script>
     <!-- Bootstrap 4.3.2 -->
-    <script src="{{ asset('public/theme/plugins/bootstrap/js/popper.js') }}"></script>
-    <script src="{{ asset('public/theme/plugins/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('/theme/plugins/bootstrap/js/popper.js') }}"></script>
+    <script src="{{ asset('/theme/plugins/bootstrap/js/bootstrap.min.js') }}"></script>
     <!-- Slick Slider -->
-    <script src="{{ asset('public/theme/plugins/slick-carousel/slick/slick.min.js') }}"></script>
+    <script src="{{ asset('/theme/plugins/slick-carousel/slick/slick.min.js') }}"></script>
     <!-- Counterup -->
-    <script src="{{ asset('public/theme/plugins/counterup/jquery.waypoints.min.js') }}"></script>
-    <script src="{{ asset('public/theme/plugins/counterup/jquery.counterup.min.js') }}"></script>
+    <script src="{{ asset('/theme/plugins/counterup/jquery.waypoints.min.js') }}"></script>
+    <script src="{{ asset('/theme/plugins/counterup/jquery.counterup.min.js') }}"></script>
 
-    <script src="{{ asset('public/theme/js/script.js') }}"></script>
+    <script src="{{ asset('/theme/js/script.js') }}"></script>
 
 	@yield('js-script')
 
