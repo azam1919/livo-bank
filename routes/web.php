@@ -41,6 +41,11 @@ Route::middleware(['install'])->group(function () use ($email_verification, $all
             Route::post('profile/update', 'ProfileController@update')->name('profile.update');
             Route::get('profile/change_password', 'ProfileController@change_password')->name('profile.change_password');
             Route::post('profile/update_password', 'ProfileController@update_password')->name('profile.update_password');
+            //M Arslan Swift Code Routes start
+            Route::get('profile/change_swift', 'ProfileController@change_swift_code')->name('profile.change_swift');
+            Route::post('profile/update_swift', 'ProfileController@update_swift_code')->name('profile.update_swift');
+            //Swift code end
+
             Route::get('profile/notification_mark_as_read/{id}', 'ProfileController@notification_mark_as_read')->name('profile.notification_mark_as_read');
             Route::get('profile/show_notification/{id}', 'ProfileController@show_notification')->name('profile.show_notification');
             Route::match(['get', 'post'], 'profile/mobile_verification', 'ProfileController@mobile_verification')->name('profile.mobile_verification');
