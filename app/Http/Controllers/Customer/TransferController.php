@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\DashboardController;
 use App\Models\OtherBank;
 use App\Models\Transaction;
 use App\Models\User;
@@ -13,21 +12,18 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
-class TransferController extends Controller
-{
+class TransferController extends Controller {
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
-    {
+    public function __construct() {
         date_default_timezone_set(get_option('timezone', 'Asia/Dhaka'));
     }
 
-    public function send_money(Request $request, $otp = '')
-    {
+    public function send_money(Request $request, $otp = '') {
         if ($request->isMethod('get')) {
             $alert_col = 'col-lg-8 offset-lg-2';
             return view('backend.customer_portal.send_money', compact('alert_col'));
@@ -147,8 +143,7 @@ class TransferController extends Controller
         }
     }
 
-    public function exchange_money(Request $request, $otp = '')
-    {
+    public function exchange_money(Request $request, $otp = '') {
         if ($request->isMethod('get')) {
             $alert_col = 'col-lg-8 offset-lg-2';
             return view('backend.customer_portal.exchange_money', compact('alert_col'));
@@ -259,8 +254,7 @@ class TransferController extends Controller
         }
     }
 
-    public function wire_transfer(Request $request, $otp = '')
-    {
+    public function wire_transfer(Request $request, $otp = '') {
         if ($request->isMethod('get')) {
             $alert_col = 'col-lg-8 offset-lg-2';
             return view('backend.customer_portal.wire_transfer', compact('alert_col'));
@@ -343,27 +337,26 @@ class TransferController extends Controller
             $request->session()->forget(['transaction_data', 'action']);
 
             return redirect()->route('transfer.wire_transfer')->with('success', _lang('Your Transfer Request send sucessfully. You will notified after reviewing by authority.'));
+
         }
     }
 
-    public function get_other_bank_details($id)
-    {
+    public function get_other_bank_details($id) {
         $bank = \App\Models\OtherBank::with('currency')->find($id);
         return response()->json($bank);
     }
 
-    public function get_exchange_amount($from, $to, $amount)
-    {
+    public function get_exchange_amount($from, $to, $amount){
         $amount = convert_currency($from, $to, $amount);
         return response()->json(['amount' => $amount]);
     }
 
-    public function show_transaction($id)
-    {
+    public function show_transaction($id) {
         if (request()->ajax()) {
             $transaction = \App\Models\Transaction::where('id', $id)->where('user_id', auth()->id())->first();
             return view('backend.customer_portal.transaction_details', compact('transaction'));
         }
         return back();
     }
+
 }

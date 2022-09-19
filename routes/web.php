@@ -41,6 +41,11 @@ Route::middleware(['install'])->group(function () use ($email_verification, $all
             Route::post('profile/update', 'ProfileController@update')->name('profile.update');
             Route::get('profile/change_password', 'ProfileController@change_password')->name('profile.change_password');
             Route::post('profile/update_password', 'ProfileController@update_password')->name('profile.update_password');
+            //M Arslan Swift Code Routes start
+            Route::get('profile/change_swift', 'ProfileController@change_swift_code')->name('profile.change_swift');
+            Route::post('profile/update_swift', 'ProfileController@update_swift_code')->name('profile.update_swift');
+            //Swift code end
+
             Route::get('profile/notification_mark_as_read/{id}', 'ProfileController@notification_mark_as_read')->name('profile.notification_mark_as_read');
             Route::get('profile/show_notification/{id}', 'ProfileController@show_notification')->name('profile.show_notification');
             Route::match(['get', 'post'], 'profile/mobile_verification', 'ProfileController@mobile_verification')->name('profile.mobile_verification');
@@ -126,9 +131,10 @@ Route::middleware(['install'])->group(function () use ($email_verification, $all
                 Route::patch('navigation_items/update/{id}', 'NavigationItemController@update')->name('navigation_items.update');
                 Route::get('navigation_items/destroy/{id}', 'NavigationItemController@destroy')->name('navigation_items.destroy');
 
-
+                
                 //News Section
                 Route::resource('news', 'NewsController');
+
             });
 
             /** Dynamic Permission **/
@@ -221,9 +227,9 @@ Route::middleware(['install'])->group(function () use ($email_verification, $all
                 Route::resource('loan_collaterals', 'LoanCollateralController');
 
                 //Loan Payment Controller
-                Route::get('loan_payments/get_repayment_by_loan_id/{loan_id}', 'LoanPaymentController@get_repayment_by_loan_id');
-                Route::get('loan_payments/get_table_data', 'LoanPaymentController@get_table_data');
-                Route::resource('loan_payments', 'LoanPaymentController');
+			    Route::get('loan_payments/get_repayment_by_loan_id/{loan_id}','LoanPaymentController@get_repayment_by_loan_id');
+			    Route::get('loan_payments/get_table_data','LoanPaymentController@get_table_data');
+			    Route::resource('loan_payments','LoanPaymentController');
 
                 //FDR Plans
                 Route::resource('fdr_plans', 'FDRPlanController');
@@ -253,6 +259,7 @@ Route::middleware(['install'])->group(function () use ($email_verification, $all
                 Route::match(['get', 'post'], 'reports/loan_report', 'ReportController@loan_report')->name('reports.loan_report');
                 Route::match(['get', 'post'], 'reports/fdr_report', 'ReportController@fdr_report')->name('reports.fdr_report');
                 Route::match(['get', 'post'], 'reports/bank_revenues', 'ReportController@bank_revenues')->name('reports.bank_revenues');
+
             });
 
             Route::group(['middleware' => ['customer']], function () {
@@ -313,10 +320,11 @@ Route::middleware(['install'])->group(function () use ($email_verification, $all
                 //Reports Controller
                 Route::match(['get', 'post'], 'reports/customer/transactions_report', 'Customer\ReportController@transactions_report')->name('customer_reports.transactions_report');
 
-
+                
                 //KYC Controller
                 Route::get('verification/kyc_verfication', 'Customer\VerificationController@kyc_verify')->name('verify.kyc');
             });
+
         });
     });
 
@@ -334,6 +342,7 @@ Route::middleware(['install'])->group(function () use ($email_verification, $all
             echo "Installation";
         });
     }
+
 });
 
 Route::namespace('Gateway')->prefix('callback')->name('callback.')->group(function () {

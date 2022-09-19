@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\DashboardController;
 use App\Models\Transaction;
 use App\Models\WithdrawMethod;
 use App\Models\WithdrawRequest;
@@ -13,16 +12,14 @@ use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class WithdrawController extends Controller
-{
+class WithdrawController extends Controller {
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
-    {
+    public function __construct() {
         date_default_timezone_set(get_option('timezone', 'Asia/Dhaka'));
     }
 
@@ -31,14 +28,12 @@ class WithdrawController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function manual_methods()
-    {
+    public function manual_methods() {
         $withdraw_methods = WithdrawMethod::where('status', 1)->get();
         return view('backend.customer_portal.withdraw.manual_methods', compact('withdraw_methods'));
     }
 
-    public function manual_withdraw(Request $request, $methodId, $otp = '')
-    {
+    public function manual_withdraw(Request $request, $methodId, $otp = '') {
         if ($request->isMethod('get')) {
             if (auth()->user()->allow_withdrawal == 0) {
                 return back()->with('error', _lang('Sorry, Withdraw action is disabled in your account !'));
@@ -143,6 +138,8 @@ class WithdrawController extends Controller
             } else {
                 return response()->json(['result' => 'success', 'action' => 'store', 'message' => _lang('Withdraw Request Submitted'), 'data' => $withdrawRequest, 'table' => '#unknown_table']);
             }
+
         }
     }
+
 }

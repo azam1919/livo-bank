@@ -104,7 +104,7 @@
 @endsection
 
 @section('js-script')
-<script src="{{ asset('public/backend/assets/js/navigation.js') }}"></script>
+<script src="{{ asset('/backend/assets/js/navigation.js') }}"></script>
 @endsection
 
 

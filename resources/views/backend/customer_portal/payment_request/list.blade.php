@@ -33,5 +33,5 @@
 @endsection
 
 @section('js-script')
-<script src="{{ asset('public/backend/assets/js/datatables/payment-request.js') }}"></script>
+<script src="{{ asset('/backend/assets/js/datatables/payment-request.js') }}"></script>
 @endsection

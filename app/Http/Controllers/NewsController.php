@@ -6,16 +6,14 @@ use App\Models\News;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class NewsController extends Controller
-{
+class NewsController extends Controller {
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
-    {
+    public function __construct() {
         date_default_timezone_set(get_option('timezone', 'Asia/Dhaka'));
     }
 
@@ -24,8 +22,7 @@ class NewsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index() {
         $newss = News::all()->sortByDesc("id");
         return view('backend.website_management.news.list', compact('newss'));
     }
@@ -35,8 +32,7 @@ class NewsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
-    {
+    public function create(Request $request) {
         if (!$request->ajax()) {
             return view('backend.website_management.news.create');
         } else {
@@ -50,13 +46,12 @@ class NewsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         // return 'response from controller';
         $validator = Validator::make($request->all(), [
             'trans.title'             => 'required',
             'trans.short_description' => 'required',
-            // 'image'                   => 'nullable|image',
+            'image'                   => 'nullable|image',
             'status'                  => 'required',
         ]);
 
@@ -70,32 +65,33 @@ class NewsController extends Controller
             }
         }
 
-        // $image = "";
-        // if ($request->hasfile('image')) {
-        //     $file  = $request->file('image');
-        //     $image = time() . $file->getClientOriginalName();
-        //     $file->move(public_path() . "/uploads/media/", $image);
-        // }
-
-        $newing = News::where('status', 1)->count();
-        if ($newing == 0) {
+        $image = "";
+        if ($request->hasfile('image')) {
+            $file  = $request->file('image');
+            $image = time() . $file->getClientOriginalName();
+            $file->move(public_path() . "/uploads/media/", $image);
+        }
+        $count = News::where('status', 1)->count();
+        // dd($count);
+        if($count <= 0 ){
             $news                  = new News();
-            // $news->image           = $image;
+            $news->image           = $image;
             // $page->slug            = $request->trans['title'];
             $news->slug            = $request->trans['title'];
             $news->status          = $request->input('status');
             $news->created_user_id = auth()->id();
-
+    
             $news->save();
-
+    
             if (!$request->ajax()) {
                 return redirect()->route('news.create')->with('success', _lang('Saved Successfully'));
             } else {
                 return response()->json(['result' => 'success', 'action' => 'store', 'message' => _lang('Saved Successfully'), 'data' => $news, 'table' => '#news_table']);
             }
-        } else {
-            return redirect()->back()->with('error', _lang('First Disabled Published News'));
+        }else{
+            return redirect()->route('news.create')->with('error', _lang('Please Draft or delete all the published news first!'));
         }
+       
     }
 
     /**
@@ -104,8 +100,7 @@ class NewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request, $id)
-    {
+    public function edit(Request $request, $id) {
         $news = News::find($id);
         if (!$request->ajax()) {
             return view('backend.website_management.news.edit', compact('news', 'id'));
@@ -121,12 +116,11 @@ class NewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id) {
         $validator = Validator::make($request->all(), [
             'trans.title'             => 'required',
             'trans.short_description' => 'required',
-            // 'image'                   => 'nullable|image',
+            'image'                   => 'nullable|image',
             'status'                  => 'required',
         ]);
 
@@ -140,33 +134,32 @@ class NewsController extends Controller
             }
         }
 
-        // if ($request->hasfile('image')) {
-        //     $file  = $request->file('image');
-        //     $image = time() . $file->getClientOriginalName();
-        //     $file->move(public_path() . "/uploads/media/", $image);
-        // }
+        if ($request->hasfile('image')) {
+            $file  = $request->file('image');
+            $image = time() . $file->getClientOriginalName();
+            $file->move(public_path() . "/uploads/media/", $image);
+        }
 
-        $newing = News::where('status', 1)->count();
-        $news = News::find($id);
-
-        $news->status = $request->input('status');
-
-        if ($newing < 1 || $news->status == '0') {
-            // if ($request->hasfile('image')) {
-            //     $news->profile_piimagecture = $image;
-            // }
+        $count = News::where('status', 1)->count();
+        if($count <= 0 ){
+            $news = News::find($id);
+            if ($request->hasfile('image')) {
+                $news->profile_piimagecture = $image;
+            }
             $news->status = $request->input('status');
-
             $news->save();
-
+    
             if (!$request->ajax()) {
                 return redirect()->route('news.index')->with('success', _lang('Updated Successfully'));
             } else {
                 return response()->json(['result' => 'success', 'action' => 'update', 'message' => _lang('Updated Successfully'), 'data' => $news, 'table' => '#news_table']);
             }
-        } else {
-            return redirect()->back()->with('error', _lang('First Disabled Published News'));
+        }else{
+            return redirect()->route('news.index')->with('error', _lang('Please Draft or delete all the published news first!'));
         }
+
+       
+
     }
 
     /**
@@ -175,8 +168,7 @@ class NewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
+    public function destroy($id) {
         $news = News::find($id);
         $news->delete();
         return redirect()->route('news.index')->with('success', _lang('Deleted Successfully'));

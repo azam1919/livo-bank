@@ -3,20 +3,17 @@
 namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\DashboardController;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 
-class ReportController extends Controller
-{
+class ReportController extends Controller {
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
-    {
+    public function __construct() {
         date_default_timezone_set(get_option('timezone', 'Asia/Dhaka'));
     }
 
@@ -25,8 +22,7 @@ class ReportController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function transactions_report(Request $request)
-    {
+    public function transactions_report(Request $request) {
         if ($request->isMethod('get')) {
             return view('backend.customer_portal.reports.all_transactions');
         } else if ($request->isMethod('post')) {
@@ -62,5 +58,7 @@ class ReportController extends Controller
             $data['transaction_type'] = $request->transaction_type;
             return view('backend.customer_portal.reports.all_transactions', $data);
         }
+
     }
+
 }

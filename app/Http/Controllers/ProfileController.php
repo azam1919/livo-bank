@@ -236,4 +236,40 @@ class ProfileController extends Controller {
         }
     }
 
+    /**
+     * Show the form for change_password the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function change_swift_code() {
+        $alert_col = 'col-lg-8 offset-lg-2';
+        return view('backend.profile.change_swift', compact('alert_col'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update_swift_code(Request $request) {
+        $this->validate($request, [
+            'oldswift' => 'required',
+            'swift'    => 'required|string|min:6|confirmed',
+        ]);
+
+        $user = User::find(Auth::User()->id);
+        if (Hash::check($request->oldswift, $user->swift)) {
+            $user->swift = Hash::make($request->swift);
+            $user->save();
+        } else {
+            return back()->with('error', _lang('Old Swift did not match !'));
+        }
+        return back()->with('success', _lang('Swift Code has been changed'));
+    }
+
+ 
+
 }

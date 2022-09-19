@@ -97,63 +97,55 @@
                 </div>
             </button>
 
-            <ul class="navbar-nav ml-auto ml-md-0 notification-area">
-                <li class="nav-item dropdown animate-dropdown">
-                    <i class="icofont-notification dropdown-toggle" data-toggle="dropdown">
-                        @php $notificatioCount = Auth::user()->unreadNotifications->count(); @endphp
-                        @if ($notificatioCount > 0)
-                            <span id="notification-count">{{ Auth::user()->unreadNotifications->count() }}</span>
-                        @endif
-                    </i>
-                    <div class="dropdown-menu dropdown-menu-right bell-notify-box notify-box">
-                        @if ($notificatioCount > 0)
-                            <span
-                                class="notify-title">{{ _lang('You have') . ' ' . $notificatioCount . ' ' . _lang('new notifications') }}</span>
-                        @else
-                            <span class="notify-title">{{ _lang('You have no new notification!') }}</span>
-                        @endif
-                        <div class="nofity-list">
-                            @php $notifications = Auth::user()->notifications->take(15); @endphp
-                            @if ($notifications->count() == 0)
-                                <p class="text-center pt-3">{{ _lang('You have no notification!') }}</p>
-                            @endif
-                            @foreach ($notifications as $notification)
-                                <div class="d-flex notify-item">
-                                    <a href="{{ route('profile.show_notification', $notification->id) }}"
-                                        class="ajax-modal" data-title="{{ _lang('Notification') }}">
-                                        <div class="notify-text">
-                                            <p
-                                                class="{{ $notification->read_at == null ? 'unread-notification' : '' }}">
-                                                {{ $notification->data['message'] }}</p>
-                                            <span>{{ $notification->created_at->diffForHumans() }}</span>
-                                        </div>
-                                    </a>
+            <!-- <ul class="navbar-nav ml-auto ml-md-0 notification-area">
+     <li class="nav-item dropdown animate-dropdown">
+      <i class="icofont-notification dropdown-toggle" data-toggle="dropdown">
+       @php $notificatioCount = Auth::user()->unreadNotifications->count(); @endphp
+       @if ($notificatioCount > 0)
+<span id="notification-count">{{ Auth::user()->unreadNotifications->count() }}</span>
+@endif
+      </i>
+      <div class="dropdown-menu dropdown-menu-right bell-notify-box notify-box">
+       @if ($notificatioCount > 0)
+<span class="notify-title">{{ _lang('You have') . ' ' . $notificatioCount . ' ' . _lang('new notifications') }}</span>
+@else
+<span class="notify-title">{{ _lang('You have no new notification!') }}</span>
+@endif
+       <div class="nofity-list">
+        @php $notifications = Auth::user()->notifications->take(15); @endphp
+        @if ($notifications->count() == 0)
+<p class="text-center pt-3">{{ _lang('You have no notification!') }}</p>
+@endif
+        @foreach ($notifications as $notification)
+<div class="d-flex notify-item">
+          <a href="{{ route('profile.show_notification', $notification->id) }}" class="ajax-modal" data-title="{{ _lang('Notification') }}">
+           <div class="notify-text">
+            <p class="{{ $notification->read_at == null ? 'unread-notification' : '' }}">{{ $notification->data['message'] }}</p>
+            <span>{{ $notification->created_at->diffForHumans() }}</span>
+           </div>
+          </a>
 
-                                    @if ($notification->read_at == null)
-                                        <a href="{{ route('profile.notification_mark_as_read', $notification->id) }}"
-                                            class="notification_mark_as_read"><i class="icofont-checked"></i></a>
-                                    @endif
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-                </li>
-            </ul>
+          @if ($notification->read_at == null)
+<a href="{{ route('profile.notification_mark_as_read', $notification->id) }}" class="notification_mark_as_read"><i class="icofont-checked"></i></a>
+@endif
+         </div>
+@endforeach
+       </div>
+      </div>
+     </li>
+    </ul> -->
 
-            <ul class="navbar-nav ml-auto ml-md-0">
-                <li class="nav-item dropdown animate-dropdown">
-                    <a class="nav-link dropdown-toggle" id="languageSelector" href="#" role="button"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i
-                            class="icofont-world"></i>
-                        {{ session('language') == '' ? get_option('language') : session('language') }}</a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="languageSelector">
-                        @foreach (get_language_list() as $language)
-                            <a class="dropdown-item"
-                                href="{{ url('/') }}?language={{ $language }}">{{ $language }}</a>
-                        @endforeach
-                    </div>
-                </li>
-            </ul>
+            <!-- <ul class="navbar-nav ml-auto ml-md-0">
+     <li class="nav-item dropdown animate-dropdown">
+      <a class="nav-link dropdown-toggle" id="languageSelector" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="icofont-world"></i> {{ session('language') == '' ? get_option('language') : session('language') }}</a>
+      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="languageSelector">
+       @foreach (get_language_list() as $language)
+<a class="dropdown-item" href="{{ url('/') }}?language={{ $language }}">{{ $language }}</a>
+@endforeach
+      </div>
+     </li>
+    </ul> -->
+
 
             <ul class="navbar-nav ml-auto ml-md-0">
                 <li class="nav-item dropdown animate-dropdown">
@@ -167,6 +159,11 @@
                             {{ _lang('Profile Settings') }}</a>
                         <a class="dropdown-item" href="{{ route('profile.change_password') }}"><i
                                 class="icofont-exchange"></i></i> {{ _lang('Change Password') }}</a>
+                        <a class="dropdown-item" href="{{ route('profile.change_swift') }}"><i
+                                class="icofont-refresh"></i></i> {{ _lang('Change Swift Code') }}</a>
+                        <a class="dropdown-item" href="{{ route('profile.change_password') }}"><i
+                                class="icofont-notification"></i></i> {{ _lang('Notification') }}
+                            {!! request_count('fdr_requests', true) !!}</a>
                         @if (auth()->user()->user_type == 'admin')
                             <a class="dropdown-item" href="{{ route('settings.update_settings') }}"><i
                                     class="icofont-ui-settings"></i> {{ _lang('System Settings') }}</a>
@@ -177,13 +174,20 @@
                     </div>
                 </li>
             </ul>
+
         </div>
     </nav>
     <!--End Header Nav-->
-
-    @if (Auth::user()->user_type == 'customer')
-        @if (!empty($newses))
+    <!-- latest News start -->
+    @if (!empty($newses))
+        @if (Auth::user()->user_type == 'customer')
             @foreach ($newses as $news)
+                <!-- <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <strong>Holy guacamole!</strong> Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime, et! Assumenda dolorum nemo quisquam, voluptatum nostrum, qui perspiciatis quae aperiam a eum, beatae voluptatibus animi excepturi libero cumque dicta molestiae reiciendis pariatur enim quia in architecto sapiente esse? Cum, amet ea magni hic iusto perspiciatis deserunt voluptatum unde. Harum voluptatem inventore tenetur at provident perspiciatis velit..
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+       <span aria-hidden="true">&times;</span>
+      </button>
+     </div> -->
                 <div class="alert alert-warning alert-dismissible fade show" role="alert">
                     <strong>{{ $news['news_translations']->title }}</strong>
                     {{ $news['news_translations']->short_description }}
@@ -194,6 +198,7 @@
             @endforeach
         @endif
     @endif
+    <!-- latest News End -->
     <div id="layoutSidenav" class="container-fluid d-flex align-items-stretch">
         <div id="layoutSidenav_nav">
             <span class="close-mobile-nav"><i class="icofont-close-line-squared-alt"></i></span>

@@ -621,17 +621,6 @@ pre code {
   }
 }
 
-@media (max-width: 650px) {
-
-  .fs-sm-20 {
-    font-size: 20px !important;
-  }
-
-  .sm-top {
-    padding: 10px !important;
-  }
-}
-
 @media (min-width: 1200px) {
 
   .container-xl,
