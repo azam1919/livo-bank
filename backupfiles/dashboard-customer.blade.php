@@ -12,12 +12,33 @@
 </div>
 @endif
 
-<div class="px-2 py-3 text-center shadow ">
+<div class="px-2 pt-3 text-center shadow " style="height: 190px">
     <!-- <img class="d-block mx-auto mb-4" src="../assets/brand/bootstrap-logo.svg" alt="" width="72" height="57"> -->
     <img src="{{ get_logo() }}" alt="" class="img-fluid">
-    <h6 class="mt-3">{{ greeting_message()}} {{Auth::user()->name}} </h6>
+    <h6 class="mt-3">{{ greeting_message() }} {{ Auth::user()->name }} </h6>
+    <div class="row">
+        <div class="col-4 sm-top" style="top:28px; cursor: pointer;">
+            <a href="#" class="d-flex flex-column justify-content-center align-items-center">
+                <i class="icofont-ui-user p-4 fs-45 fs-sm-20 shadow-lg bg-white" style="border-radius: 50%;color: grey"></i>
+            </a>
+            <span class="caption mt-5" style="margin-top: 10px">Cash In</span>
+        </div>
+        <div class="col-4 sm-top" style="top:28px; cursor: pointer;">
+            <a href="#" class="d-flex flex-column justify-content-center align-items-center">
+                <i class="icofont-ui-user p-4 fs-45 fs-sm-20 shadow-lg bg-white" style="border-radius: 50%;color: grey"></i>
+            </a>
+            <span class="caption mt-5" style="margin-top: 10px">Cash Out</span>
+        </div>
+        <div class="col-4 sm-top" style="top:28px; cursor: pointer;">
+            <a href="#" class="d-flex flex-column justify-content-center align-items-center">
+                <i class="icofont-ui-user p-4 fs-45 fs-sm-20 shadow-lg bg-white" style="border-radius: 50%;color: grey"></i>
+            </a>
+            <span class="caption mt-5" style="margin-top: 10px">Wire Transfer</span>
+        </div>
+    </div>
 </div>
 <div class="my-5"></div>
+<div class="my-5 pb-1"></div>
 
 
 
