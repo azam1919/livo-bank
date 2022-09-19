@@ -58,6 +58,7 @@
 </a>
 <div class="collapse" id="loans" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
 	<nav class="sb-sidenav-menu-nested nav">
+		<a class="nav-link" href="{{ route('loans.upcoming_loans') }}">{{ _lang('Upcoming Loan Payments') }}</a>
 		<a class="nav-link" href="{{ route('loans.apply_loan') }}">{{ _lang('Apply New Loan') }}</a>
 		<a class="nav-link" href="{{ route('loans.my_loans') }}">{{ _lang('My Loans') }}</a>
 		<a class="nav-link" href="{{ route('loans.calculator') }}">{{ _lang('Loan Calculator') }}</a>

@@ -30,4 +30,8 @@ class News extends Model {
         return $slug;
     }
 
+    public function news_translations()
+    {
+        return $this->belongsTo(NewsTranslation::class, 'id', 'news_id');
+    }
 }

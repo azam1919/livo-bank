@@ -145,7 +145,6 @@
 					</li>
 				</ul> -->
 
-
 				<ul class="navbar-nav ml-auto ml-md-0">
 					<li class="nav-item dropdown animate-dropdown">
 						<a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="icofont-ui-user"></i></a>
@@ -153,8 +152,7 @@
 							<a class="dropdown-item" href="{{ route('profile.index') }}"><i class="icofont-ui-user"></i> {{ _lang('Profile Overview') }}</a>
 							<a class="dropdown-item" href="{{ route('profile.edit') }}"><i class="icofont-ui-edit"></i> {{ _lang('Profile Settings') }}</a>
 							<a class="dropdown-item" href="{{ route('profile.change_password') }}"><i class="icofont-exchange"></i></i> {{ _lang('Change Password') }}</a>
-							<a class="dropdown-item" href="{{ route('profile.change_swift') }}"><i class="icofont-refresh"></i></i> {{ _lang('Change Swift Code') }}</a>
-							<a class="dropdown-item" href="{{ route('profile.change_password') }}"><i class="icofont-notification"></i></i> {{ _lang('Notification') }} {!! request_count('fdr_requests',true) !!}</a>
+							<a class="dropdown-item" href="{{ route('profile.change_password') }}"><i class="icofont-notification"></i></i> {{ _lang('Notification') }} {!! xss_clean(request_count('fdr_requests',true)) !!}</a>
 							@if(auth()->user()->user_type == 'admin')
 							<a class="dropdown-item" href="{{ route('settings.update_settings') }}"><i class="icofont-ui-settings"></i> {{ _lang('System Settings') }}</a>
 							@endif
@@ -167,27 +165,15 @@
 			</div>
         </nav>
 		<!--End Header Nav-->
-		<!-- latest News start -->
-		@if(!empty($newses))
-			@if(Auth::user()->user_type == 'customer')
-				@foreach ($newses as $news)
-					<!-- <div class="alert alert-warning alert-dismissible fade show" role="alert">
-						<strong>Holy guacamole!</strong> Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime, et! Assumenda dolorum nemo quisquam, voluptatum nostrum, qui perspiciatis quae aperiam a eum, beatae voluptatibus animi excepturi libero cumque dicta molestiae reiciendis pariatur enim quia in architecto sapiente esse? Cum, amet ea magni hic iusto perspiciatis deserunt voluptatum unde. Harum voluptatem inventore tenetur at provident perspiciatis velit..
-						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div> -->
-					<div class="alert alert-warning alert-dismissible fade show" role="alert">
-						<strong>{{ $news['news_translations']->title }}</strong>
-						{{ $news['news_translations']->short_description }}
-						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-				@endforeach
-			@endif
+
+		@if(Auth::user()->user_type == 'customer')
+		<div class="alert alert-warning alert-dismissible fade show" role="alert">
+			<strong>Holy guacamole!</strong> Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime, et! Assumenda dolorum nemo quisquam, voluptatum nostrum, qui perspiciatis quae aperiam a eum, beatae voluptatibus animi excepturi libero cumque dicta molestiae reiciendis pariatur enim quia in architecto sapiente esse? Cum, amet ea magni hic iusto perspiciatis deserunt voluptatum unde. Harum voluptatem inventore tenetur at provident perspiciatis velit..
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
 		@endif
-		<!-- latest News End -->
 		<div id="layoutSidenav" class="container-fluid d-flex align-items-stretch">
 			<div id="layoutSidenav_nav">
 				<span class="close-mobile-nav"><i class="icofont-close-line-squared-alt"></i></span>

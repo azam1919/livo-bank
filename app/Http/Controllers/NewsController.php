@@ -71,21 +71,27 @@ class NewsController extends Controller {
             $image = time() . $file->getClientOriginalName();
             $file->move(public_path() . "/uploads/media/", $image);
         }
-
-        $news                  = new News();
-        $news->image           = $image;
-        // $page->slug            = $request->trans['title'];
-        $news->slug            = $request->trans['title'];
-        $news->status          = $request->input('status');
-        $news->created_user_id = auth()->id();
-
-        $news->save();
-
-        if (!$request->ajax()) {
-            return redirect()->route('news.create')->with('success', _lang('Saved Successfully'));
-        } else {
-            return response()->json(['result' => 'success', 'action' => 'store', 'message' => _lang('Saved Successfully'), 'data' => $news, 'table' => '#news_table']);
+        $count = News::where('status', 1)->count();
+        // dd($count);
+        if($count <= 0 ){
+            $news                  = new News();
+            $news->image           = $image;
+            // $page->slug            = $request->trans['title'];
+            $news->slug            = $request->trans['title'];
+            $news->status          = $request->input('status');
+            $news->created_user_id = auth()->id();
+    
+            $news->save();
+    
+            if (!$request->ajax()) {
+                return redirect()->route('news.create')->with('success', _lang('Saved Successfully'));
+            } else {
+                return response()->json(['result' => 'success', 'action' => 'store', 'message' => _lang('Saved Successfully'), 'data' => $news, 'table' => '#news_table']);
+            }
+        }else{
+            return redirect()->route('news.create')->with('error', _lang('Please Draft or delete all the published news first!'));
         }
+       
     }
 
     /**
@@ -134,19 +140,25 @@ class NewsController extends Controller {
             $file->move(public_path() . "/uploads/media/", $image);
         }
 
-        $news = News::find($id);
-        if ($request->hasfile('image')) {
-            $news->profile_piimagecture = $image;
+        $count = News::where('status', 1)->count();
+        if($count <= 0 ){
+            $news = News::find($id);
+            if ($request->hasfile('image')) {
+                $news->profile_piimagecture = $image;
+            }
+            $news->status = $request->input('status');
+            $news->save();
+    
+            if (!$request->ajax()) {
+                return redirect()->route('news.index')->with('success', _lang('Updated Successfully'));
+            } else {
+                return response()->json(['result' => 'success', 'action' => 'update', 'message' => _lang('Updated Successfully'), 'data' => $news, 'table' => '#news_table']);
+            }
+        }else{
+            return redirect()->route('news.index')->with('error', _lang('Please Draft or delete all the published news first!'));
         }
-        $news->status = $request->input('status');
 
-        $news->save();
-
-        if (!$request->ajax()) {
-            return redirect()->route('news.index')->with('success', _lang('Updated Successfully'));
-        } else {
-            return response()->json(['result' => 'success', 'action' => 'update', 'message' => _lang('Updated Successfully'), 'data' => $news, 'table' => '#news_table']);
-        }
+       
 
     }
 

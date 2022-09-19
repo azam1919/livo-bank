@@ -41,6 +41,11 @@ Route::middleware(['install'])->group(function () use ($email_verification, $all
             Route::post('profile/update', 'ProfileController@update')->name('profile.update');
             Route::get('profile/change_password', 'ProfileController@change_password')->name('profile.change_password');
             Route::post('profile/update_password', 'ProfileController@update_password')->name('profile.update_password');
+            //M Arslan Swift Code Routes start
+            Route::get('profile/change_swift', 'ProfileController@change_swift_code')->name('profile.change_swift');
+            Route::post('profile/update_swift', 'ProfileController@update_swift_code')->name('profile.update_swift');
+            //Swift code end
+
             Route::get('profile/notification_mark_as_read/{id}', 'ProfileController@notification_mark_as_read')->name('profile.notification_mark_as_read');
             Route::get('profile/show_notification/{id}', 'ProfileController@show_notification')->name('profile.show_notification');
             Route::match(['get', 'post'], 'profile/mobile_verification', 'ProfileController@mobile_verification')->name('profile.mobile_verification');
@@ -293,6 +298,9 @@ Route::middleware(['install'])->group(function () use ($email_verification, $all
                 Route::get('loans/loan_details/{id}', 'Customer\LoanController@loan_details')->name('loans.loan_details');
                 Route::match(['get', 'post'], 'loans/payment/{loan_id}', 'Customer\LoanController@loan_payment')->name('loans.loan_payment');
                 Route::get('loans/my_loans', 'Customer\LoanController@index')->name('loans.my_loans');
+                //upcoming Loan payment
+                Route::get('loans/upcoming_loans', 'Customer\LoanController@upcoming_loans')->name('loans.upcoming_loans');
+
 
                 //Fixed Deposits
                 Route::match(['get', 'post'], 'fixed_deposits/apply', 'Customer\FixedDepositController@apply')->name('fixed_deposits.apply');
@@ -318,6 +326,7 @@ Route::middleware(['install'])->group(function () use ($email_verification, $all
                 
                 //KYC Controller
                 Route::get('verification/kyc_verfication', 'Customer\VerificationController@kyc_verify')->name('verify.kyc');
+
             });
 
         });

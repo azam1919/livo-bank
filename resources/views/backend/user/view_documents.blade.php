@@ -36,7 +36,7 @@
 					@foreach($documents as $document)
 						<tr>
 							<td>{{ $document->document_name }}</td>
-							<td><a target="_blank" href="{{ asset('public/uploads/media/'.$document->document ) }}">{{ $document->document }}</a></td>
+							<td><a target="_blank" href="{{ asset('/uploads/media/'.$document->document ) }}">{{ $document->document }}</a></td>
 							<td>{{ date('d M, Y H:i:s',strtotime($document->created_at)) }}</td>																			
 						</tr>
 					@endforeach

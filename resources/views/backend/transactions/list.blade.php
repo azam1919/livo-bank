@@ -41,5 +41,5 @@
 @endsection
 
 @section('js-script')
-<script src="{{ asset('public/backend/assets/js/datatables/all_transactions.js?v=1.0') }}"></script>
+<script src="{{ asset('/backend/assets/js/datatables/all_transactions.js?v=1.0') }}"></script>
 @endsection
