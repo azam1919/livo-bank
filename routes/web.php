@@ -298,6 +298,9 @@ Route::middleware(['install'])->group(function () use ($email_verification, $all
                 Route::get('loans/loan_details/{id}', 'Customer\LoanController@loan_details')->name('loans.loan_details');
                 Route::match(['get', 'post'], 'loans/payment/{loan_id}', 'Customer\LoanController@loan_payment')->name('loans.loan_payment');
                 Route::get('loans/my_loans', 'Customer\LoanController@index')->name('loans.my_loans');
+                //upcoming Loan payment
+                Route::get('loans/upcoming_loans', 'Customer\LoanController@upcoming_loans')->name('loans.upcoming_loans');
+
 
                 //Fixed Deposits
                 Route::match(['get', 'post'], 'fixed_deposits/apply', 'Customer\FixedDepositController@apply')->name('fixed_deposits.apply');
@@ -323,6 +326,7 @@ Route::middleware(['install'])->group(function () use ($email_verification, $all
                 
                 //KYC Controller
                 Route::get('verification/kyc_verfication', 'Customer\VerificationController@kyc_verify')->name('verify.kyc');
+
             });
 
         });

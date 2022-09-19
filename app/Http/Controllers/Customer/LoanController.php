@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Customer;
 
-use App\Http\Controllers\Controller;
+use DB;
 use App\Models\Loan;
 use App\Models\LoanPayment;
 use App\Models\Transaction;
-use App\Utilities\LoanCalculator as Calculator;
-use DB;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use App\Utilities\LoanCalculator as Calculator;
 
 class LoanController extends Controller {
 
@@ -272,6 +272,17 @@ class LoanController extends Controller {
                 return response()->json(['result' => 'success', 'action' => 'store', 'message' => _lang('Payment Made Sucessfully'), 'data' => $loanpayment, 'table' => '#loan_payments_table']);
             }
         }
+    }
+
+    public function upcoming_loans()
+    {
+        $user      = auth()->user();
+        $user_type = $user->user_type;
+        $data      = array();
+        if ($user_type == 'customer') {
+            $data['loans']           = Loan::where('status', 1)->where('borrower_id', auth()->id())->get();
+        }
+        return view('backend.loan.upcoming-loan', $data);
     }
 
 }

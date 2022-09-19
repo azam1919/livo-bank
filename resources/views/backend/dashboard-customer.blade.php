@@ -69,8 +69,7 @@
 						</div>
 					</div>
 					<div class="d-flex" style="justify-content: space-between;">
-						<!-- <h6>{{ _lang('Avaiable Balance') }}</h6> -->
-						<h6>{{ _lang('xxxxxxxx') }}{{ substr(Auth::user()->account_number, -4) }}</h6>
+						<h6>{{ _lang('Avaiable Balance') }}</h6>
 						@foreach($account_balance as $currency)
 						<h6 class="pt-1" class="balance" id="balance" style="cursor: pointer;"><b>{{ decimalPlace($currency->balance, currency($currency->name)) }}</b></h6>
 						@endforeach
@@ -190,6 +189,49 @@
 			</div>
 		</div>
 	</div>
+
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="card mb-4">
+				<div class="card-header">
+					{{ _lang('Up Comming Loan Payment') }}
+				</div>
+				<div class="card-body">
+					<div class="table-responsive">
+						<table class="table table-bordered">
+							<thead>
+								<th>{{ _lang('Loan ID') }}</th>
+								<th>{{ _lang('Next Payment Date') }}</th>
+								<th>{{ _lang('Status') }}</th>
+								<th class="text-right">{{ _lang('Amount to Pay') }}</th>
+								<th class="text-center">{{ _lang('Action') }}</th>
+							</thead>
+							<tbody>
+								@if(count($loans) == 0)
+								<tr>
+									<td colspan="5">
+										<h6 class="text-center">{{ _lang('No Active Loan Available') }}</h6>
+									</td>
+								</tr>
+								@endif
+
+								@foreach($loans as $loan)
+								<tr>
+									<td>{{ $loan->loan_id }}</td>
+									<td>{{ $loan->next_payment->repayment_date }}</td>
+									<td>{!! $loan->next_payment->repayment_date >= date('Y-m-d') ? xss_clean(show_status(_lang('Upcoming'),'success')) : xss_clean(show_status(_lang('Due'),'danger')) !!}</td>
+									<td class="text-right">{{ decimalPlace($loan->next_payment->amount_to_pay, currency($loan->currency->name)) }}</td>
+									<td class="text-center"><a href="{{ route('loans.loan_payment',$loan->id) }}" class="btn btn-primary btn-sm">{{ _lang('Pay Now') }}</a></td>
+								</tr>
+								@endforeach
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<script>
 		$(document).ready(function() {
 
