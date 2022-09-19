@@ -12,14 +12,16 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
-class DepositController extends Controller {
+class DepositController extends Controller
+{
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct() {
+    public function __construct()
+    {
         date_default_timezone_set(get_option('timezone', 'Asia/Dhaka'));
     }
 
@@ -28,7 +30,8 @@ class DepositController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function manual_methods() {
+    public function manual_methods()
+    {
         $deposit_methods = DepositMethod::where('status', 1)->get();
         return view('backend.customer_portal.deposit.manual_methods', compact('deposit_methods'));
     }
@@ -38,12 +41,14 @@ class DepositController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function automatic_methods() {
+    public function automatic_methods()
+    {
         $deposit_methods = PaymentGateway::where('status', 1)->get();
         return view('backend.customer_portal.deposit.automatic_methods', compact('deposit_methods'));
     }
 
-    public function manual_deposit(Request $request, $methodId) {
+    public function manual_deposit(Request $request, $methodId)
+    {
         if ($request->isMethod('get')) {
             $deposit_method = DepositMethod::find($methodId);
             return view('backend.customer_portal.deposit.modal.manual_deposit', compact('deposit_method'));
@@ -90,11 +95,11 @@ class DepositController extends Controller {
             } else {
                 return response()->json(['result' => 'success', 'action' => 'store', 'message' => _lang('Deposit Request Submited'), 'data' => $depositRequest, 'table' => '#unknown_table']);
             }
-
         }
     }
 
-    public function automatic_deposit(Request $request, $methodId) {
+    public function automatic_deposit(Request $request, $methodId)
+    {
         if ($request->isMethod('get')) {
             if ($request->ajax()) {
                 $deposit_method = PaymentGateway::where('id', $methodId)->where('status', 1)->first();
@@ -159,7 +164,8 @@ class DepositController extends Controller {
         }
     }
 
-    public function redeem_gift_card(Request $request) {
+    public function redeem_gift_card(Request $request)
+    {
         if ($request->isMethod('get')) {
             $alert_col = 'col-lg-6 offset-lg-3';
             return view('backend.customer_portal.deposit.redeem_gift_card', compact('alert_col'));
@@ -207,14 +213,12 @@ class DepositController extends Controller {
             DB::commit();
 
             return redirect()->route('deposit.redeem_gift_card')->with('success', _lang('Gift Card Redeem Successfully'));
-
         }
     }
 
     //M Arslan Function
-    public function deposit()
+    public function index()
     {
         return view('backend.customer_portal.deposit.deposit');
     }
-
 }
