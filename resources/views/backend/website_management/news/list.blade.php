@@ -13,7 +13,7 @@
 				<table id="news_table" class="table table-bordered data-table">
 					<thead>
 					    <tr>
-						    <th>{{ _lang('Image') }}</th>
+						    <!-- <th>{{ _lang('Image') }}</th> -->
 							<th>{{ _lang('Title') }}</th>
 							<th>{{ _lang('Status') }}</th>
 							<th class="text-center">{{ _lang('Action') }}</th>
@@ -22,7 +22,7 @@
 					<tbody>
 					    @foreach($newss as $news)
 					    <tr data-id="row_{{ $news->id }}">
-							<td class='image'><img src="{{ media_images($news->image) }}" class="thumb-sm img-thumbnail"/></td>
+							<!-- <td class='image'><img src="{{ media_images($news->image) }}" class="thumb-sm img-thumbnail"/></td> -->
 							<td class='title'>{{ $news->translation->title }}</td>
 							<td class='status'>{!! xss_clean(status($news->status)) !!}</td>
 
