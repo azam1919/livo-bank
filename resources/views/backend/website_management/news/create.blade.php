@@ -25,7 +25,7 @@
 							</div>
 						</div>
 
-						<div class="col-md-12">
+						<!-- <div class="col-md-12">
 							<div class="form-group">
 								<label class="control-label">{{ _lang('Content') }}</label>
 								<textarea class="form-control summernote" name="trans[content]">{{ old('trans.content') }}</textarea>
@@ -37,7 +37,7 @@
 								<label class="control-label">{{ _lang('Image') }}</label>
 								<input type="file" class="dropify" name="image">
 							</div>
-						</div>
+						</div> -->
 
 						<div class="col-md-12">
 							<div class="form-group">
