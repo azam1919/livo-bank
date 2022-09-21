@@ -46,10 +46,10 @@
 	</nav>
 </div> -->
 
-<a class="nav-link" href="{{ route('withdraw.manual_methods') }}">
+<!-- <a class="nav-link" href="{{ route('withdraw.manual_methods') }}">
 	<div class="sb-nav-link-icon"><i class="icofont-minus-circle"></i></div>
 	{{ _lang('Withdraw Fund') }}
-</a>
+</a> -->
 
 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#loans" aria-expanded="false" aria-controls="collapseLayouts">
 	<div class="sb-nav-link-icon"><i class="icofont-dollar-minus"></i></div>
@@ -66,7 +66,7 @@
 	</nav>
 </div>
 
-<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#fdr" aria-expanded="false" aria-controls="collapseLayouts">
+<!-- <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#fdr" aria-expanded="false" aria-controls="collapseLayouts">
 	<div class="sb-nav-link-icon"><i class="icofont-money"></i></div>
 	{{ _lang('Fixed Deposit') }}
 	<div class="sb-sidenav-collapse-arrow"><i class="icofont-rounded-down"></i></div>
@@ -77,7 +77,7 @@
 		<a class="nav-link" href="{{ route('fixed_deposits.apply') }}">{{ _lang('Apply New FRD') }}</a>
 		<a class="nav-link" href="{{ route('fixed_deposits.history') }}">{{ _lang('FDR History') }}</a>
 	</nav>
-</div>
+</div> -->
 
 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#tickets" aria-expanded="false" aria-controls="collapseLayouts">
 	<div class="sb-nav-link-icon"><i class="icofont-live-support"></i></div>
