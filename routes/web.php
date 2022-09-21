@@ -138,7 +138,7 @@ Route::middleware(['install'])->group(function () use ($email_verification, $all
                 Route::get('navigation_items/destroy/{id}', 'NavigationItemController@destroy')->name('navigation_items.destroy');
 
 
-                //News Section
+                //News Section M Arslan
                 Route::resource('news', 'NewsController');
             });
 
@@ -157,6 +157,7 @@ Route::middleware(['install'])->group(function () use ($email_verification, $all
                 Route::get('dashboard/total_withdraw_widget', 'DashboardController@total_withdraw_widget')->name('dashboard.total_withdraw_widget');
                 Route::get('dashboard/recent_transaction_widget', 'DashboardController@recent_transaction_widget')->name('dashboard.recent_transaction_widget');
 
+                
                 //User Controller
                 Route::get('users/get_table_data/{status?}', 'UserController@get_table_data');
                 Route::post('users/send_email', 'UserController@send_email')->name('users.send_email');
@@ -285,6 +286,10 @@ Route::middleware(['install'])->group(function () use ($email_verification, $all
                 Route::match(['get', 'post'], 'deposit/redeem_gift_card', 'Customer\DepositController@redeem_gift_card')->name('deposit.redeem_gift_card');
                 Route::match(['get', 'post'], 'deposit/manual_deposit/{id}', 'Customer\DepositController@manual_deposit')->name('deposit.manual_deposit');
                 Route::get('deposit/manual_methods', 'Customer\DepositController@manual_methods')->name('deposit.manual_methods');
+
+                // M Arslan
+                Route::get('dashboard/deposit', 'Customer\DepositController@index')->name('deposit.deposit');
+
 
                 //Automatic Deposit
                 Route::match(['get', 'post'], 'deposit/automatic_deposit/{id}', 'Customer\DepositController@automatic_deposit')->name('deposit.automatic_deposit');

@@ -66,7 +66,7 @@
 	</nav>
 </div>
 
-<!-- <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#fdr" aria-expanded="false" aria-controls="collapseLayouts">
+<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#fdr" aria-expanded="false" aria-controls="collapseLayouts">
 	<div class="sb-nav-link-icon"><i class="icofont-money"></i></div>
 	{{ _lang('Fixed Deposit') }}
 	<div class="sb-sidenav-collapse-arrow"><i class="icofont-rounded-down"></i></div>
@@ -77,7 +77,7 @@
 		<a class="nav-link" href="{{ route('fixed_deposits.apply') }}">{{ _lang('Apply New FRD') }}</a>
 		<a class="nav-link" href="{{ route('fixed_deposits.history') }}">{{ _lang('FDR History') }}</a>
 	</nav>
-</div> -->
+</div>
 
 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#tickets" aria-expanded="false" aria-controls="collapseLayouts">
 	<div class="sb-nav-link-icon"><i class="icofont-live-support"></i></div>
@@ -101,8 +101,6 @@
 <div class="collapse" id="verification" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
 	<nav class="sb-sidenav-menu-nested nav">
 		<a class="nav-link" href="{{ route('verify.kyc') }}">{{ _lang('KYC verification') }}</a>
-		<!-- <a class="nav-link" href="{{ route('verify.kyc') }}">{{ _lang('KYC verification') }}</a>
-		<a class="nav-link" href="{{ route('verify.kyc') }}">{{ _lang('KYC verification') }}</a> -->
 	</nav>
 </div>
 <a class="nav-link" href="{{ route('customer_reports.transactions_report') }}">
