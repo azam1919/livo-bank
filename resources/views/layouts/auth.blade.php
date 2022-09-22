@@ -11,15 +11,15 @@
     <title>{{ get_option('site_title', config('app.name')) }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('public/auth/js/app.js') }}" defer></script>
+    <script src="{{ asset('auth/js/app.js') }}" defer></script>
 
     <!-- Google font -->
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="{{ asset('public/auth/css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('public/auth/css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('auth/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('auth/css/app.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
