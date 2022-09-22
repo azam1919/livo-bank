@@ -43,7 +43,7 @@ class WebsiteController extends Controller {
      * Display website's home page
      *
      * @return \Illuminate\Http\Response
-     */
+    */
     public function index($slug = '') {
         $data = array();
 

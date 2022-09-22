@@ -14,28 +14,28 @@
 		<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 		<!-- DataTables -->
-		<link href="{{ asset('public/backend/plugins/datatable/datatables.min.css') }}" rel="stylesheet" type="text/css" />
+		<link href="{{ asset('backend/plugins/datatable/datatables.min.css') }}" rel="stylesheet" type="text/css" />
 
-		<link href="{{ asset('public/backend/plugins/dropify/css/dropify.min.css') }}" rel="stylesheet">
-		<link href="{{ asset('public/backend/plugins/sweet-alert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css">
-        <link href="{{ asset('public/backend/plugins/animate/animate.css') }}" rel="stylesheet" type="text/css">
-		<link href="{{ asset('public/backend/plugins/select2/select2.min.css') }}" rel="stylesheet" type="text/css" />
-		<link href="{{ asset('public/backend/plugins/daterangepicker/daterangepicker.css') }}" rel="stylesheet" />
-	    <link href="{{ asset('public/backend/plugins/jquery-toast-plugin/jquery.toast.min.css') }}" rel="stylesheet" />
+		<link href="{{ asset('backend/plugins/dropify/css/dropify.min.css') }}" rel="stylesheet">
+		<link href="{{ asset('backend/plugins/sweet-alert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('backend/plugins/animate/animate.css') }}" rel="stylesheet" type="text/css">
+		<link href="{{ asset('backend/plugins/select2/select2.min.css') }}" rel="stylesheet" type="text/css" />
+		<link href="{{ asset('backend/plugins/daterangepicker/daterangepicker.css') }}" rel="stylesheet" />
+	    <link href="{{ asset('backend/plugins/jquery-toast-plugin/jquery.toast.min.css') }}" rel="stylesheet" />
 
 		<!-- App Css -->
-		<link rel="stylesheet" href="{{ asset('public/backend/assets/fonts/icofont/icofont.min.css') }}">
-		<link rel="stylesheet" href="{{ asset('public/backend/assets/css/styles.css') }}">
+		<link rel="stylesheet" href="{{ asset('backend/assets/fonts/icofont/icofont.min.css') }}">
+		<link rel="stylesheet" href="{{ asset('backend/assets/css/styles.css') }}">
 
 		<!-- Modernizr -->
-		<script src="{{ asset('public/backend/assets/js/modernizr-2.8.3.min.js') }}"></script>
+		<script src="{{ asset('backend/assets/js/modernizr-2.8.3.min.js') }}"></script>
 
 		<!-- Jquery -->
-		<script src="{{ asset('public/backend/assets/js/jquery.min.js') }}"></script>
+		<script src="{{ asset('backend/assets/js/jquery.min.js') }}"></script>
 
 		@if(get_option('backend_direction') == "rtl")
-			<link rel="stylesheet" href="{{ asset('public/backend/assets/css/rtl/bootstrap.min.css') }}">
-			<link rel="stylesheet" href="{{ asset('public/backend/assets/css/rtl/style.css') }}">
+			<link rel="stylesheet" href="{{ asset('backend/assets/css/rtl/bootstrap.min.css') }}">
+			<link rel="stylesheet" href="{{ asset('backend/assets/css/rtl/style.css') }}">
 		@endif
 
 		@include('layouts.others.languages')
@@ -214,27 +214,27 @@
 		</div> <!--End layoutSidenav-->
 
 		<!-- Core Js  -->
-		<script src="{{ asset('public/backend/assets/js/jquery-3.6.0.min.js') }}"></script>
-        <script src="{{ asset('public/backend/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+		<script src="{{ asset('backend/assets/js/jquery-3.6.0.min.js') }}"></script>
+        <script src="{{ asset('backend/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
-		<script src="{{ asset('public/backend/assets/js/print.js') }}"></script>
-		<script src="{{ asset('public/backend/assets/js/pace.min.js') }}"></script>
-		<script src="{{ asset('public/backend/assets/js/clipboard.min.js') }}"></script>
-        <script src="{{ asset('public/backend/plugins/moment/moment.js') }}"></script>
+		<script src="{{ asset('backend/assets/js/print.js') }}"></script>
+		<script src="{{ asset('backend/assets/js/pace.min.js') }}"></script>
+		<script src="{{ asset('backend/assets/js/clipboard.min.js') }}"></script>
+        <script src="{{ asset('backend/plugins/moment/moment.js') }}"></script>
 
 		<!-- Datatable js -->
-        <script src="{{ asset('public/backend/plugins/datatable/datatables.min.js') }}"></script>
+        <script src="{{ asset('backend/plugins/datatable/datatables.min.js') }}"></script>
 
-		<script src="{{ asset('public/backend/plugins/dropify/js/dropify.min.js') }}"></script>
-		<script src="{{ asset('public/backend/plugins/sweet-alert2/sweetalert2.min.js') }}"></script>
-		<script src="{{ asset('public/backend/plugins/select2/select2.min.js') }}"></script>
-		<script src="{{ asset('public/backend/plugins/daterangepicker/daterangepicker.js') }}"></script>
-		<script src="{{ asset('public/backend/plugins/tinymce/tinymce.min.js') }}"></script>
-		<script src="{{ asset('public/backend/plugins/parsleyjs/parsley.min.js') }}"></script>
-		<script src="{{ asset('public/backend/plugins/jquery-toast-plugin/jquery.toast.min.js') }}"></script>
+		<script src="{{ asset('backend/plugins/dropify/js/dropify.min.js') }}"></script>
+		<script src="{{ asset('backend/plugins/sweet-alert2/sweetalert2.min.js') }}"></script>
+		<script src="{{ asset('backend/plugins/select2/select2.min.js') }}"></script>
+		<script src="{{ asset('backend/plugins/daterangepicker/daterangepicker.js') }}"></script>
+		<script src="{{ asset('backend/plugins/tinymce/tinymce.min.js') }}"></script>
+		<script src="{{ asset('backend/plugins/parsleyjs/parsley.min.js') }}"></script>
+		<script src="{{ asset('backend/plugins/jquery-toast-plugin/jquery.toast.min.js') }}"></script>
 
         <!-- App js -->
-        <script src="{{ asset('public/backend/assets/js/scripts.js?v=1.2') }}"></script>
+        <script src="{{ asset('backend/assets/js/scripts.js?v=1.2') }}"></script>
 
 		<script type="text/javascript">
 		(function($) {
