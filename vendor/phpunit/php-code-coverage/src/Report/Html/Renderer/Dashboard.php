@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 /*
  * This file is part of phpunit/php-code-coverage.
  *
@@ -9,7 +7,6 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace SebastianBergmann\CodeCoverage\Report\Html;
 
 use function array_values;
@@ -68,7 +65,7 @@ final class Dashboard extends Renderer
     {
         return sprintf(
             '         <li class="breadcrumb-item"><a href="index.html">%s</a></li>' . "\n" .
-                '         <li class="breadcrumb-item active">(Dashboard)</li>' . "\n",
+            '         <li class="breadcrumb-item active">(Dashboard)</li>' . "\n",
             $node->name()
         );
     }
@@ -256,10 +253,8 @@ final class Dashboard extends Renderer
                 }
             }
 
-            if (
-                $class['coverage'] < $this->highLowerBound &&
-                $class['ccn'] > count($class['methods'])
-            ) {
+            if ($class['coverage'] < $this->highLowerBound &&
+                $class['ccn'] > count($class['methods'])) {
                 $classRisks[$className] = $class['crap'];
             }
         }
